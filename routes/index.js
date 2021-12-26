@@ -3,7 +3,7 @@ const router = express.Router();
 const products = require('../data/all.json');
 const { version } = require('../package.json');
 
-const help = `eol.bar ${version}
+const curlHelp = `eol.bar ${version}
 
 EoL dates chart from endoflife.date
 
@@ -21,7 +21,7 @@ PRODUCTS:
 router.get('/', (req, res) => {
   const ua = req.get('User-Agent');
   if (new RegExp('^curl\/').test(ua)) {
-    res.send(help);
+    res.send(curlHelp);
     return;
   }
   res.render('index', { message: help });
