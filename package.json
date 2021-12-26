@@ -3,7 +3,9 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "node ./bin/www"
+    "fetch": "node fetch.js",
+    "serve": "node ./bin/www",
+    "start": "run-p fetch serve"
   },
   "dependencies": {
     "cookie-parser": "~1.4.4",
@@ -11,5 +13,8 @@
     "express": "~4.16.1",
     "gantt": "^3.1.1",
     "morgan": "~1.9.1"
+  },
+  "devDependencies": {
+    "npm-run-all": "^4.1.5"
   }
 }
