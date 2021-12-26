@@ -5,6 +5,7 @@
   "scripts": {
     "fetch": "node fetch.js",
     "serve": "node ./bin/www",
+    "prestart": "curl -o data/all.json https://endoflife.date/api/all.json",
     "start": "run-p fetch serve"
   },
   "dependencies": {

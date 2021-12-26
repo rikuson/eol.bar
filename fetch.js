@@ -36,7 +36,7 @@ function writeJson(filename, data) {
   });
 }
 
-fetch('https://endoflife.date/api/all.json').then((products) => {
-  writeJson('all.json', products);
-  fetchProducts(products)
+fs.readFile(path.join(__dirname, 'data', 'all.json'), 'utf-8', (err, data) => {
+  if (err) throw err;
+  fetchProducts(JSON.parse(data));
 });
