@@ -14,8 +14,6 @@ router.get('/', (req, res) => {
   const { from, to } = req.query;
   const gantt = new StrGantt(
     data.map(columns).filter(({ start, end, text }) => {
-      return end >= now;
-      /* TODO
       if (!from && !to) {
         return end >= now;
       }
@@ -28,10 +26,9 @@ router.get('/', (req, res) => {
       if (isDate(to)) {
         result *= end <= new Date(to);
       } else if (isCycle(to)) {
-        result *= Number(text) <= Number(from);
+        result *= Number(text) <= Number(to);
       }
       return result;
-      */
     }),
     { viewMode: 'month' }
   );
@@ -40,7 +37,7 @@ router.get('/', (req, res) => {
 });
 
 function isDate(str) {
-  return /^\d\{4}-\d\{2}-\d\{2}$/.test(str);
+  return /^\d{4}-\d{2}-\d{2}$/.test(str);
 }
 
 function isCycle(str) {
