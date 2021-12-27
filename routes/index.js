@@ -24,7 +24,7 @@ router.get('/', (req, res) => {
     res.send(curlHelp);
     return;
   }
-  res.render('index', { message: help });
+  res.render('index', { message: curlHelp });
 });
 
 function space(num) {
