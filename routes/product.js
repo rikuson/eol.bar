@@ -3,17 +3,20 @@ const router = express.Router({ mergeParams: true });
 const StrGantt = require('gantt/lib/StrGantt').default;
 const { XMLParser, XMLBuilder } = require('fast-xml-parser');
 const products = require('../data/all.json');
-const Product = require('../product.js')
+const Product = require('../lib/product.js')
 
 router.get('/', (req, res) => {
-  const targets = req.params.products.split('+').filter((p) => products.includes(p));
+  const targets = req.params.products
+    .split('+')
+    .map((p) => new Product(p))
+    .filter((p) => products.includes(p.name));
   if (!targets.length) {
     res.status(404).end();
     return;
   }
   const rows = targets.flatMap((target) => {
-    const product = new Product(require(`../data/${target}.json`));
-    return product.search(req.query).map(row.bind(null, target));
+    target.setData(require(`../data/${target.name}.json`));
+    return target.cycles.map(row);
   });
   const gantt = new StrGantt(rows, { viewMode: 'month' });
   res.setHeader('Content-Type', 'image/svg+xml');
@@ -26,12 +29,12 @@ router.get('/', (req, res) => {
   res.send(builder.build({ svg }));
 });
 
-function row(target, { meta, release, eol, support, cycle }) {
+function row({ meta, release, eol, support, cycle }) {
   const supportPeriod = support.getTime() - release.getTime();
   const allPeriod = eol.getTime() - release.getTime();
   return {
-    id: meta.id,
-    text: `${target} ${cycle}`,
+    id: meta.index + 1,
+    text: `${meta.name} ${cycle}`,
     start: release,
     end: eol,
     percent: eol < meta.searchAt ? 0 : supportPeriod / allPeriod,
