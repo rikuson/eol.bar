@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router({ mergeParams: true });
 const products = require('../data/all.json');
 const Product = require('../lib/product')
+const Gantt = require('../lib/gantt');
 
 router.get('/', (req, res) => {
   const targets = req.params.products
@@ -16,8 +17,9 @@ router.get('/', (req, res) => {
     target.setData(require(`../data/${target.name}.json`));
     return target.cycles;
   });
+  const gantt = new Gantt(rows);
   res.setHeader('Content-Type', 'image/svg+xml');
-  res.render('product', { rows });
+  res.send(gantt.render());
 });
 
 module.exports = router;
