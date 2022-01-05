@@ -18,5 +18,6 @@ app.use(cookieParser());
 
 app.use('/', indexRouter);
 app.use('/:products.svg', productRouter);
+app.use('/:products', productRouter);
 
 module.exports = app;
