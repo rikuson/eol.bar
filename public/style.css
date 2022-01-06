@@ -1,0 +1,152 @@
+html,
+body {
+  margin: 0;
+  padding: 0;
+  font-size: 16px;
+  font-family: "PT Sans",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+  color: #444;
+}
+
+body {
+  padding-bottom: 20px;
+}
+
+h1 {
+  font-weight: normal;
+  display: inline-block;
+  margin: 0;
+  font-size: 1.4rem;
+}
+
+h1 small {
+  font-size: .7rem;
+  font-family: "PT Sans",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+  vertical-align: super;
+  margin-left: 5px;
+}
+
+h2 {
+  font-size: 2rem;
+  font-family: Arvo, Georgia, "Times New Roman", Times, serif;
+  font-weight: 700;
+  color: #373A3C;
+}
+
+h3 {
+  font-size: 1.4rem;
+  font-family: Arvo, Georgia, "Times New Roman", Times, serif;
+  font-weight: 700;
+  color: #373A3C;
+}
+
+pre {
+  background: #F0F0F0;
+  border-radius: 5px;
+  padding: 15px;
+  overflow-x: auto;
+}
+
+code {
+  color: #000;
+  background: #F0F0F0;
+  border-radius: 3px;
+  padding: 0 5px;
+  font-family: monospace;
+}
+
+.navbar {
+  margin-bottom: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  color: #FFF;
+}
+
+.navbar a {
+  color: #FFF;
+}
+
+.navbar i {
+  font-size: 1.4rem;
+}
+
+.terminal {
+  font-size: 1.2rem;
+  margin-bottom: 15px;
+  display: block;
+  height: 300px;
+  padding: 15px;
+  font-family: monospace;
+  border: 1.5px;
+  color: #FFF;
+  border-radius: 5px;
+  background: #333;
+  box-shadow: 3px 3px 8px rgba(0,0,0,0.5)
+}
+
+.terminal:before {
+  content: '>';
+  margin-right: .5rem;
+}
+
+.terminal:after {
+  content: '_';
+  margin-left: .5rem;
+  animation: .8s ease-in infinite flush;
+}
+
+.container {
+  max-width: 1080px;
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 0 80px;
+  box-sizing: border-box;
+}
+
+.card {
+}
+
+.badge {
+  font-size: 0.7rem;
+  display: inline-block;
+  border-radius: 15px;
+  border: 1px solid rgba(0, 0, 0, 0.3);
+  padding: 3px 10px;
+}
+
+.bg-main {
+  background: #4AD988;
+}
+
+.bg-sub {
+  background: #BDEDF2;
+}
+
+.bg-accent {
+  background: #04C4D9;
+}
+
+.bg-white {
+  background: #FFF;
+}
+
+.active {
+  background: blue;
+  color: white;
+}
+
+.maintenance {
+  background: gray;
+  color: white;
+}
+
+@keyframes flush {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
+}

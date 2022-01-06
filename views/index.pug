@@ -1,7 +1,90 @@
 doctype html
 html
   head
-    title='EoL bar'
+    title eol.bar
     link(rel='canonical' href='https://eol.bar')
-  body(style='background: black; color: #bbb;')
-    pre #{message}
+    link(rel='stylesheet' href='/style.css')
+    link(rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css')
+    script(type='application/javascript' src='/main.js')
+  body
+    .bg-main
+      .container.navbar
+        h1 eol.bar
+          small @#{version}
+        a(href='https://github.com/rikuson/eol.bar' target='_blank')
+          i.fab.fa-github
+    section.container
+      .terminal curl eol.bar/nodejs
+      section
+        h2 What's this?
+        p
+          | When your project depends on other product, you must care when to update those dependencies.
+          br
+          | <b>eol.bar</b> provides a schedule of end-of-life dates of various products graphically.
+          br
+          | Those data are powered by
+          a(href='https://endoflife.date') endoflife.date
+          |  which is a community-maintained project.
+      section
+        h2 Basic Usage
+        p
+          | Put <code>img</code> tag in your project's wiki or something.
+          br
+          | Alive lifecycles are shown as a default.
+        pre
+          code= '<img src="https://eol.bar/nodejs.svg" />'
+        img(src='/nodejs.svg')
+        p To list multiple products, separate by <code>+</code>.
+        pre
+          code= '<img src="https://eol.bar/nodejs+php.svg" />'
+        img(src='/nodejs+php.svg')
+      section
+        h2 Advanced Usage
+        section
+          h3 Filtering
+          p
+            | To filter lifecycles, put <b>comparison operator</b> after product name.
+            br
+            | NOTE: Right-hand side value of operation should be existing lifecycle.
+          pre
+            code= '<img src="https://eol.bar/nodejs<=12.svg" />'
+          img(src='/nodejs<=12.svg')
+          p You can also use <b>wildcard</b> in a value.
+          pre
+            code= '<img src="https://eol.bar/php=7.*.svg" />'
+          img(src='/php=7.*.svg')
+        section
+          h3 Cropping
+          p To adjust width, crop by url parameters: <code>from</code>, <code>to</code>.
+          pre
+            code= '<img src="https://eol.bar/php=7.*.svg?from=2019-02-01&to=2021-11-30"/>'
+          img(src='/php=7.*.svg?from=2019-02-01&to=2021-11-30')
+        section
+          h3 Curl
+          p
+            | Interestingly, <b>eol.bar</b> returns ascii graphically by curl request.
+            br
+            | Try executing command below in your terminal.
+          pre
+            code= '$ curl eol.bar/php'
+          pre
+            code
+              |         Nov 2019  Nov 2020  Nov 2021  Nov 2022  Dec 2022  Nov 2023  Dec 2023  Dec 2024 
+              |            |         |         |         |         |         |         |         |
+              | php 8.1    |         |         |<span class="active"> ACTIVE                               </span><span class="maintenance"> MAINTENANC</span>|
+              |            |         |         |         |         |         |         |         |
+              | php 8.0    |         |<span class="active"> ACTIVE                    </span><span class="maintenance"> MAINTENANCE       </span>   |         |
+              |            |         |         |         |         |         |         |         |
+              | php 7.4    |<span class="active"> ACTIVE             </span><span class="maintenance"> MAINTENANCE      </span> |         |         |         |
+              |            |         |         |         |         |         |         |         |
+        p Requesting root path shows help text.
+        pre
+          code $ curl eol.bar
+      section
+        h2 Product List
+        p
+          | To know supported product list, check 
+          a(href='https://endoflife.date') endoflife.date
+          | .
+          br
+          | Or you can see the list in the help text by <code>$ curl eol.bar</code>.
