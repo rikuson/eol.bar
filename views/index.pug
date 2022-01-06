@@ -1,4 +1,7 @@
-extends layout
-
-block content
-  pre #{message}
+doctype html
+html
+  head
+    title='EoL bar'
+    link(rel='canonical' href='https://eol.bar')
+  body(style='background: black; color: #bbb;')
+    pre #{message}

@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "fetch": "node fetch.js",
+    "fetch": "node ./bin/fetch",
     "serve": "node ./bin/www",
     "prestart": "curl -o data/all.json https://endoflife.date/api/all.json",
     "start": "run-p fetch serve"

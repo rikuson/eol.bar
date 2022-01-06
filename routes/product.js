@@ -2,8 +2,9 @@ const express = require('express');
 const router = express.Router({ mergeParams: true });
 const products = require('../data/all.json');
 const Product = require('../lib/product')
-const Gantt = require('../lib/gantt');
-const { render } = require('../lib/cui');
+const Svg = require('../lib/svg-gantt');
+const Ascii = require('../lib/ascii-gantt');
+const { uniq, cloneDate, firstDay, nextMonth, time } = require('../lib/util');
 
 router.get('/', (req, res) => {
   const targets = req.params.products
@@ -18,16 +19,22 @@ router.get('/', (req, res) => {
     target.setData(require(`../data/${target.name}.json`));
     return target.cycles;
   });
+  const columns = uniq(
+    rows.flatMap(({ release, support, eol }) => [
+      release && firstDay(cloneDate(release)).getTime(),
+      support && firstDay(cloneDate(support)).getTime(),
+      eol && firstDay(nextMonth(cloneDate(eol))).getTime(),
+    ]).filter((d) => d).sort((a, b) => a > b ? 1 : -1)
+  ).map((t) => new Date(t));
 
-  const ua = req.get('User-Agent');
-  if (new RegExp('^curl\/').test(ua)) {
-    res.send(render(rows));
-    return;
+  if (new RegExp('^curl\/').test(req.get('User-Agent'))) {
+    const ascii = new Ascii(rows, columns);
+    res.send(ascii.render());
+  } else {
+    const svg = new Svg(rows, columns);
+    res.setHeader('Content-Type', 'image/svg+xml');
+    res.send(svg.render());
   }
-
-  const gantt = new Gantt(rows);
-  res.setHeader('Content-Type', 'image/svg+xml');
-  res.send(gantt.render());
 });
 
 module.exports = router;
