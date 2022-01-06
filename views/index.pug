@@ -1,6 +1,8 @@
 doctype html
 html
   head
+    meta(charset='utf-8')
+    meta(name='viewport' content='width=device-width, initial-scale=1')
     title eol.bar
     link(rel='canonical' href='https://eol.bar')
     link(rel='stylesheet' href='/style.css')
@@ -14,7 +16,8 @@ html
         a(href='https://github.com/rikuson/eol.bar' target='_blank')
           i.fab.fa-github
     section.container
-      .terminal curl eol.bar/nodejs
+      pre.terminal
+        span.typing curl eol.bar/nodejs
       section
         h2 What's this?
         p
@@ -22,7 +25,7 @@ html
           br
           | <b>eol.bar</b> provides a schedule of end-of-life dates of various products graphically.
           br
-          | Those data are powered by
+          | Those data are powered by 
           a(href='https://endoflife.date') endoflife.date
           |  which is a community-maintained project.
       section
@@ -45,7 +48,18 @@ html
           p
             | To filter lifecycles, put <b>comparison operator</b> after product name.
             br
-            | NOTE: Right-hand side value of operation should be existing lifecycle.
+            | Available operators: 
+            code =
+            | , 
+            code >
+            | , 
+            code >=
+            | , 
+            code <
+            | , 
+            code <=
+            | .
+          p NOTE: Right-hand side value of operation should be existing lifecycle.
           pre
             code= '<img src="https://eol.bar/nodejs<=12.svg" />'
           img(src='/nodejs<=12.svg')
@@ -67,16 +81,6 @@ html
             | Try executing command below in your terminal.
           pre
             code= '$ curl eol.bar/php'
-          pre
-            code
-              |         Nov 2019  Nov 2020  Nov 2021  Nov 2022  Dec 2022  Nov 2023  Dec 2023  Dec 2024 
-              |            |         |         |         |         |         |         |         |
-              | php 8.1    |         |         |<span class="active"> ACTIVE                               </span><span class="maintenance"> MAINTENANC</span>|
-              |            |         |         |         |         |         |         |         |
-              | php 8.0    |         |<span class="active"> ACTIVE                    </span><span class="maintenance"> MAINTENANCE       </span>   |         |
-              |            |         |         |         |         |         |         |         |
-              | php 7.4    |<span class="active"> ACTIVE             </span><span class="maintenance"> MAINTENANCE      </span> |         |         |         |
-              |            |         |         |         |         |         |         |         |
         p Requesting root path shows help text.
         pre
           code $ curl eol.bar
@@ -87,4 +91,4 @@ html
           a(href='https://endoflife.date') endoflife.date
           | .
           br
-          | Or you can see the list in the help text by <code>$ curl eol.bar</code>.
+          | Or you can see the list by executing <code>$ curl eol.bar</code>.

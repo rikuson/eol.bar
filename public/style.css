@@ -43,7 +43,7 @@ pre {
   background: #F0F0F0;
   border-radius: 5px;
   padding: 15px;
-  overflow-x: auto;
+  overflow: auto;
 }
 
 code {
@@ -71,7 +71,7 @@ code {
 }
 
 .terminal {
-  font-size: 1.2rem;
+  font-size: .8rem;
   margin-bottom: 15px;
   display: block;
   height: 300px;
@@ -81,18 +81,33 @@ code {
   color: #FFF;
   border-radius: 5px;
   background: #333;
-  box-shadow: 3px 3px 8px rgba(0,0,0,0.5)
+  box-shadow: 3px 3px 8px rgba(0,0,0,0.5);
+}
+
+.terminal span:first-child {
+  vertical-align: middle;
+}
+
+.terminal .typing {
+  font-size: .8rem;
+  display: inline-block;
+  width: 19ch;
+  overflow: hidden;
+  vertical-align: middle;
+  animation: typing 3s steps(19);
 }
 
 .terminal:before {
   content: '>';
   margin-right: .5rem;
+  vertical-align: middle;
+  animation: typing 3s steps(19);
 }
 
 .terminal:after {
   content: '_';
   margin-left: .5rem;
-  animation: .8s ease-in infinite flush;
+  animation: .7s ease-in infinite flush;
 }
 
 .container {
@@ -100,11 +115,8 @@ code {
   width: 100%;
   margin-left: auto;
   margin-right: auto;
-  padding: 0 80px;
+  padding: 0 5%;
   box-sizing: border-box;
-}
-
-.card {
 }
 
 .badge {
@@ -139,6 +151,13 @@ code {
 .maintenance {
   background: gray;
   color: white;
+}
+
+@keyframes typing {
+  from {
+    width: 0;
+    font-size: 1.2rem;
+  }
 }
 
 @keyframes flush {

@@ -4,7 +4,8 @@ const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 
 const indexRouter = require('./routes/index');
-const productRouter = require('./routes/product');
+const svgRouter = require('./routes/svg');
+const asciiRouter = require('./routes/ascii');
 
 const app = express();
 
@@ -18,7 +19,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
-app.use('/:products.svg', productRouter);
-app.use('/:products', productRouter);
+app.use('/:products.svg', svgRouter);
+app.use('/:products', asciiRouter);
 
 module.exports = app;

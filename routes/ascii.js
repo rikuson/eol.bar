@@ -2,7 +2,6 @@ const express = require('express');
 const router = express.Router({ mergeParams: true });
 const products = require('../data/all.json');
 const Product = require('../lib/product')
-const Svg = require('../lib/svg-gantt');
 const Ascii = require('../lib/ascii-gantt');
 const { uniq, cloneDate, firstDay, nextMonth, time } = require('../lib/util');
 
@@ -27,14 +26,8 @@ router.get('/', (req, res) => {
     ]).filter((d) => d).sort((a, b) => a > b ? 1 : -1)
   ).map((t) => new Date(t));
 
-  if (new RegExp('^curl\/').test(req.get('User-Agent'))) {
-    const ascii = new Ascii(rows, columns);
-    res.send(ascii.render());
-  } else {
-    const svg = new Svg(rows, columns);
-    res.setHeader('Content-Type', 'image/svg+xml');
-    res.send(svg.render());
-  }
+  const ascii = new Ascii(rows, columns);
+  res.send(ascii.render());
 });
 
 module.exports = router;
