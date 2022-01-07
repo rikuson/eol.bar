@@ -5,7 +5,7 @@ window.onload = () => {
     const innerElm = document.getElementsByClassName('typing')[0];
     innerElm.className = '';
     promise.then((r) => r.text()).then((ascii) => {
-      ascii = ascii.replace('\n      ', '\n');
+      ascii = ascii.replaceAll('\n      ', '\n');
       ascii = ascii.replaceAll('\n', '<br />');
       ascii = ascii.replaceAll('[37m[44m', '<span class="active">');
       ascii = ascii.replaceAll('[37m[100m', '<span class="maintenance">');

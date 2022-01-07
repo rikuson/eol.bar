@@ -74,7 +74,6 @@ code {
   font-size: .8rem;
   margin-bottom: 15px;
   display: block;
-  height: 300px;
   padding: 15px;
   font-family: monospace;
   border: 1.5px;
@@ -94,14 +93,13 @@ code {
   width: 19ch;
   overflow: hidden;
   vertical-align: middle;
-  animation: typing 3s steps(19);
+  animation: 3s steps(19) typing;
 }
 
 .terminal:before {
   content: '>';
   margin-right: .5rem;
   vertical-align: middle;
-  animation: typing 3s steps(19);
 }
 
 .terminal:after {
@@ -156,7 +154,6 @@ code {
 @keyframes typing {
   from {
     width: 0;
-    font-size: 1.2rem;
   }
 }
 
