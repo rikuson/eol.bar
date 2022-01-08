@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router({ mergeParams: true });
 const products = require('../data/all.json');
 const Product = require('../lib/product')
-const Svg = require('../lib/svg-gantt');
+const AnsiGantt = require('../lib/ansi-gantt');
 const { uniqDate, cloneDate, firstDay, nextMonth, time } = require('../lib/util');
 const { parse } = require('../lib/tokenizer');
 
@@ -25,9 +25,8 @@ router.get('/', (req, res) => {
     ]).filter((d) => d).sort((a, b) => a > b ? 1 : -1)
   );
 
-  const svg = new Svg(rows, columns);
-  res.setHeader('Content-Type', 'image/svg+xml');
-  res.send(svg.render());
+  const gantt = new AnsiGantt(rows, columns);
+  res.send(gantt.render());
 });
 
 module.exports = router;

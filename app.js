@@ -5,7 +5,7 @@ const logger = require('morgan');
 
 const indexRouter = require('./routes/index');
 const svgRouter = require('./routes/svg');
-const asciiRouter = require('./routes/ascii');
+const ansiRouter = require('./routes/ansi');
 
 const app = express();
 
@@ -20,6 +20,6 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
 app.use('/:products.svg', svgRouter);
-app.use('/:products', asciiRouter);
+app.use('/:products', ansiRouter);
 
 module.exports = app;
