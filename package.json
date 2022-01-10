@@ -2,7 +2,7 @@
   "name": "eol.bar",
   "version": "0.0.1-0",
   "engines": {
-    "node": "14.x"
+    "node": "16.x"
   },
   "private": true,
   "scripts": {

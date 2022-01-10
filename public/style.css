@@ -160,6 +160,10 @@ code {
   color: white;
 }
 
+.hidden {
+  display: none;
+}
+
 @keyframes typing {
   from {
     width: 0;
