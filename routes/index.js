@@ -2,37 +2,22 @@ const express = require('express');
 const router = express.Router();
 const products = require('../data/all.json');
 const { version } = require('../package.json');
-
-const curlHelp = `eol.bar ${version}
-
-EoL dates chart from endoflife.date
-
-USAGE:
-    curl eol.bar/[PRODUCT]?from=[CYCLE|DATE]&to=[CYCLE|DATE]
-
-PARAMS:
-    from    Filter products older than the value.
-    to      Filter products newer than the value.
-
-PRODUCTS:
-    ${products.map((p, i) => p + (i % 3 !== 2 ? space(30 - p.length) : '\n    ')).join('')}
-`;
+const AnsiHelp = require('../lib/ansi-help');
 
 router.get('/', (req, res) => {
   const ua = req.get('User-Agent');
+  const data = products.filter((product) => {
+    const cycles = require(`../data/${product}.json`);
+    const exp = /^\d{4}-\d{2}-\d{2}$/;
+    return cycles.every((cycle) => exp.test(cycle.release) && exp.test(cycle.eol));
+  });
   if (new RegExp('^curl\/').test(ua)) {
-    res.send(curlHelp);
+    const ansi = new AnsiHelp(data, version);
+    res.send(ansi.render());
     return;
   }
-  res.render('index', { version });
+  console.log(data);
+  res.render('index', { version, products: data });
 });
-
-function space(num) {
-  let space = '';
-  for (let i = 0; i < num; i++) {
-    space += ' ';
-  }
-  return space;
-}
 
 module.exports = router;

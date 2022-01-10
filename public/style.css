@@ -125,6 +125,15 @@ code {
   padding: 3px 10px;
 }
 
+.products {
+  overflow: hidden;
+}
+
+.products li {
+  float: left;
+  width: 33%;
+}
+
 .bg-main {
   background: #4AD988;
 }

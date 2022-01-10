@@ -93,9 +93,7 @@ html
           code $ curl eol.bar
       section
         h2 Supported products
-        p
-          | To know supported product list, check 
-          a(href='https://endoflife.date') endoflife.date
-          | .
-          br
-          | Or you can see the list by executing <code>$ curl eol.bar</code>.
+        ul.products
+          each product in products
+            li
+              a(href=`/${product}.svg`)= product

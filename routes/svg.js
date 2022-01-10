@@ -17,6 +17,10 @@ router.get('/', (req, res) => {
     const product = new Product(require(`../data/${target.product}.json`));
     return product.search(target.product, target.operator, target.value);
   });
+  if (!rows.length) {
+    res.status(404).end();
+    return;
+  }
   const columns = uniqDate(
     rows.flatMap(({ release, support, eol }) => [
       release && firstDay(cloneDate(release)),
