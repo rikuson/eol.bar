@@ -27,7 +27,7 @@ router.get('/', (req, res) => {
 
   const svg = new Svg(rows, columns);
   res.setHeader('Content-Type', 'image/svg+xml');
-  res.send(svg.render());
+  res.send(svg.render(req.query.from, req.query.to));
 });
 
 module.exports = router;
