@@ -7,6 +7,11 @@ const { uniqDate, cloneDate, firstDay, nextMonth, time } = require('../lib/util'
 const { parse } = require('../lib/tokenizer');
 
 router.get('/', (req, res) => {
+  const ua = req.get('User-Agent');
+  if (!(new RegExp('^curl\/').test(ua))) {
+    res.status(404).end();
+    return;
+  }
   const targets = parse(req.params.products)
     .filter(({ product }) => products.includes(product));
   if (!targets.length) {
