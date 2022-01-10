@@ -13,7 +13,7 @@ router.get('/', (req, res) => {
   const data = products.filter((product) => {
     const cycles = require(`../data/${product}.json`);
     const exp = /^\d{4}-\d{2}-\d{2}$/;
-    return cycles.every((cycle) => exp.test(cycle.release) && exp.test(cycle.eol));
+    return cycles.every((cycle) => exp.test(cycle.release));
   });
   if (new RegExp('^curl\/').test(ua)) {
     const ansi = new AnsiHelp(data, version);
