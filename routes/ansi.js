@@ -12,20 +12,12 @@ router.get('/', (req, res) => {
     res.status(404).end();
     return;
   }
-  const targets = parse(req.params.products)
-    .filter(({ product }) => products.includes(product));
-  if (!targets.length) {
-    res.status(404).end();
-    return;
-  }
+  const targets = parse(req.params.products);
   const rows = targets.flatMap((target) => {
-    const product = new Product(require(`../data/${target.product}.json`));
+    const exists = products.includes(target.product);
+    const product = new Product(exists ? require(`../data/${target.product}.json`) : []);
     return product.search(target.product, target.operator, target.value);
   });
-  if (!rows.length) {
-    res.status(404).end();
-    return;
-  }
   const columns = uniqDate(
     rows.flatMap(({ release, support, eol }) => [
       release && firstDay(cloneDate(release)),
