@@ -16,6 +16,8 @@ html
         a(href='https://github.com/rikuson/eol.bar' target='_blank')
           i.fab.fa-github
     section.container
+      a(href='https://github.com/rikuson/eol.bar')
+        img(src='https://img.shields.io/github/stars/rikuson/eol.bar?style=social')
       pre.terminal
         span.typing curl eol.bar/nodejs
       section
@@ -36,11 +38,13 @@ html
           | Alive lifecycles are shown as a default.
         pre
           code= '<img src="https://eol.bar/nodejs.svg" />'
-        img(src='/nodejs.svg')
+        a(href='/nodejs.svg' target='_blank')
+          img(src='/nodejs.svg')
         p To list multiple products, separate by <code>+</code>.
         pre
           code= '<img src="https://eol.bar/nodejs+php.svg" />'
-        img(src='/nodejs+php.svg')
+        a(href='/nodejs+php.svg' target='_blank')
+          img(src='/nodejs+php.svg')
       section
         h2 Advanced Usage
         section
@@ -62,17 +66,20 @@ html
           p NOTE: Right-hand side value of operation should be existing lifecycle.
           pre
             code= '<img src="https://eol.bar/nodejs<=12.svg" />'
-          img(src='/nodejs<=12.svg')
+          a(href='/nodejs<=12.svg' target='_blank')
+            img(src='/nodejs<=12.svg')
           p You can also use <b>wildcard</b> in a value.
           pre
             code= '<img src="https://eol.bar/php=7.*.svg" />'
-          img(src='/php=7.*.svg')
+          a(href='/php=7.*.svg' target='_blank')
+            img(src='/php=7.*.svg')
         section
           h3 Cropping
-          p To adjust width, crop by url parameters: <code>from</code>, <code>to</code>.
+          p To adjust width, crop by url parameters: <code>from</code> / <code>to</code>.
           pre
             code= '<img src="https://eol.bar/php=7.*.svg?from=2019-02-01&to=2021-11-30"/>'
-          img(src='/php=7.*.svg?from=2019-02-01&to=2021-11-30')
+          a(href='/php=7.*.svg?from=2019-02-01&to=2021-11-30' target='_blank')
+            img(src='/php=7.*.svg?from=2019-02-01&to=2021-11-30')
         section
           h3 Curl
           p
