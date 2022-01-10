@@ -33,9 +33,9 @@ router.get('/', (req, res) => {
   const example = ((str) => {
     str = str.replaceAll('\n      ', '\n');
     str = str.replaceAll('\n', '<br />');
-    str = str.replaceAll('[37m[44m', '<span class="active">');
-    str = str.replaceAll('[37m[100m', '<span class="maintenance">');
-    str = str.replaceAll('[49m[39m', '</span>');
+    str = str.replaceAll('\x1b[37m\x1b[44m', '<span class="active">');
+    str = str.replaceAll('\x1b[37m\x1b[100m', '<span class="maintenance">');
+    str = str.replaceAll('\x1b[0m', '</span>');
     return '<br />' + str + '>';
   })(gantt.render());
   res.render('index', { version, products: data, example });
