@@ -16,7 +16,6 @@ router.get('/', (req, res) => {
     res.send(ansi.render());
     return;
   }
-  console.log(data);
   res.render('index', { version, products: data });
 });
 
