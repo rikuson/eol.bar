@@ -134,6 +134,12 @@ code {
   width: 33%;
 }
 
+@media (max-width: 767px) {
+  .products li {
+    width: 100%;
+  }
+}
+
 .bg-main {
   background: #4AD988;
 }
