@@ -11,7 +11,8 @@ Display endoflife schedule on graphical interface.
 Fetch data from [endoflife.date](https://endoflife.date).
 
 ```bash
-$ npm run fetch
+$ npm run prestart
+$ NODE_ENV=development npm run fetch
 ```
 
 ### Start development server

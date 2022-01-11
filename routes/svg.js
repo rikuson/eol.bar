@@ -1,16 +1,22 @@
 const express = require('express');
 const router = express.Router({ mergeParams: true });
-const products = require('../data/all.json');
+const db = require('../lib/db');
+const products = require('../data.json');
 const Product = require('../lib/product')
 const Svg = require('../lib/svg-gantt');
 const { uniqDate, cloneDate, firstDay, nextMonth, time } = require('../lib/util');
 const { parse } = require('../lib/tokenizer');
 
-router.get('/', (req, res) => {
-  const targets = parse(req.params.products);
-  const rows = targets.flatMap((target) => {
+router.get('/', async (req, res) => {
+  const targets = await Promise.all(parse(req.params.products).map(async (target) => {
     const exists = products.includes(target.product);
-    const product = new Product(exists ? require(`../data/${target.product}.json`) : []);
+    return {
+      ...target,
+      data: exists ? JSON.parse(await db.get(target.product)) : [],
+    };
+  }));
+  const rows = targets.flatMap((target) => {
+    const product = new Product(target.data);
     return product.search(target.product, target.operator, target.value);
   });
   const columns = uniqDate(

@@ -3,6 +3,7 @@
 const https = require('https');
 const path = require('path');
 const fs = require('fs');
+const db = require('../lib/db');
 
 function fetch(url) {
   console.log(`Fetch: ${url}`);
@@ -26,16 +27,10 @@ function fetchProducts(products) {
   if (!product) return;
   setTimeout(() => {
     fetch(`https://endoflife.date/api/${product}.json`).then((res) => {
-      writeJson(`${product}.json`, res);
+      db.set(product, JSON.stringify(res));
       fetchProducts(products.slice(1));
     });
   }, 1000);
-}
-
-function writeJson(filename, data) {
-  fs.writeFile(path.join(__dirname, '../data', filename), JSON.stringify(data), (err) => {
-    if (err) throw err;
-  });
 }
 
 fs.readFile(path.join(__dirname, '../data', 'all.json'), 'utf-8', (err, data) => {

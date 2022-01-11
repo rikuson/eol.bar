@@ -1,17 +1,18 @@
 const { execSync } = require('child_process');
 const express = require('express');
 const router = express.Router();
-const products = require('../data/all.json');
+const db = require('../lib/db');
+const products = require('../data.json');
 const { version } = require('../package.json');
 const AnsiHelp = require('../lib/ansi-help');
 const Product = require('../lib/product')
 const AnsiGantt = require('../lib/ansi-gantt');
 const { uniqDate, cloneDate, firstDay, nextMonth } = require('../lib/util');
 
-router.get('/', (req, res) => {
+router.get('/', async (req, res) => {
   const ua = req.get('User-Agent');
-  const data = products.filter((product) => {
-    const cycles = require(`../data/${product}.json`);
+  const data = products.filter(async (product) => {
+    const cycles = JSON.parse(await db.get(product));
     const exp = /^\d{4}-\d{2}-\d{2}$/;
     return cycles.every((cycle) => exp.test(cycle.release));
   });
@@ -20,7 +21,7 @@ router.get('/', (req, res) => {
     res.send(ansi.render());
     return;
   }
-  const product = new Product(require('../data/nodejs.json'));
+  const product = new Product(JSON.parse(await db.get('nodejs')));
   const rows = product.search('nodejs');
   const columns = uniqDate(
     rows.flatMap(({ release, support, eol }) => [
