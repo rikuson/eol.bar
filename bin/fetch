@@ -24,15 +24,12 @@ function fetch(url) {
 
 function fetchProducts(products) {
   const [product] = products;
-  if (!product) {
-    process.exit(1);
-    return;
-  };
+  if (!product) return;
   setTimeout(() => {
     fetch(`https://endoflife.date/api/${product}.json`).then((res) => {
       db.set(product, JSON.stringify(res));
       fetchProducts(products.slice(1));
-    }).catch(console.error);
+    });
   }, 1000);
 }
 
