@@ -15,7 +15,7 @@ router.get('/', async (req, res) => {
         ...target,
         data: exists ? JSON.parse(await db.get(target.product)) : [],
       };
-    }))).catch(console.error);
+    })));
     const rows = targets.flatMap((target) => {
       const product = new Product(target.data);
       return product.search(target.product, target.operator, target.value);
