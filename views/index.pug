@@ -7,6 +7,7 @@ html
     link(rel='canonical' href='https://eol.bar')
     link(rel='stylesheet' href='/style.css')
     link(rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css')
+    script!= `products = ${JSON.stringify(products)}`
     script(type='application/javascript' src='/main.js')
   body
     .bg-main
@@ -94,8 +95,41 @@ html
         pre
           code $ curl eol.bar
       section
+        h2 URL generator
+        p You can kick-start with URL generator.
+        #period
+          input#from(type='date')
+          | -
+          input#to(type='date')
+        datalist#products
+          each product in products
+            option= product.name
+        .expression
+          input.product(type='text' style='width: 100%;' autocomplete='on' list='products' value=products[0].name)
+          select.operator
+            option
+            option =
+            option &lt;
+            option &le;
+            option &gt;
+            option &ge;
+          input.cycle(type='text' style='width: 100%;' autocomplete='on' disabled)
+          datalist
+          span.btn-group
+            button.add(type='button') +
+            button.remove(type='button' disabled) -
+        .tab
+          a.tab-item.active(href='#html') HTML
+          a.tab-item(href='#markdown') Markdown
+          a.tab-item(href='#curl') curl
+        .tab-content
+          textarea#html.active(readonly)
+          textarea#markdown(readonly)
+          textarea#curl(readonly)
+        img#preview
+      section
         h2 Supported products
         ul.products
           each product in products
             li
-              a(href=`/${product}.svg`)= product
+              a(href=`/${product.name}.svg`)= product.name

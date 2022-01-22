@@ -156,18 +156,114 @@ code {
   background: #FFF;
 }
 
-.active {
+.terminal .active {
   background: blue;
   color: white;
 }
 
-.maintenance {
+.terminal .maintenance {
   background: gray;
   color: white;
 }
 
 .hidden {
   display: none;
+}
+
+.tab {
+  border-bottom: 1px solid #E3E3E3;
+}
+
+.tab-item {
+  display:  inline-block;
+  padding: 10px;
+  color: #4AD988;
+  text-decoration: none;
+  font-family: monospace;
+}
+
+.tab-item.active {
+  border: 1px solid #E3E3E3;
+  background: #FFF;
+  border-bottom: none;
+  border-radius: 5px 5px 0 0;
+  position: relative;
+  top: 1px;
+  color: inherit;
+}
+
+.tab-content {
+  padding: 15px 0;
+}
+
+.tab-content :not(.active) {
+  display: none;
+}
+
+.tab-content textarea {
+  width: 100%;
+  border: 1px solid #E3E3E3;
+  border-radius: 3px;
+  padding: 5px;
+  box-sizing: border-box;
+  font-family: monospace;
+  font-size: 0.8rem;
+}
+
+#period input {
+  border: 1px solid #E3E3E3;
+  border-radius: 5px;
+  height: 2rem;
+  padding: 0 10px;
+}
+
+#period input:first-child {
+  margin-right: 10px;
+}
+
+#period input:last-child {
+  margin-left: 10px;
+}
+
+.expression {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 15px -10px;
+}
+
+.expression select,
+.expression input {
+  margin: 0 10px;
+  border: 1px solid #E3E3E3;
+  border-radius: 5px;
+  height: 2rem;
+  padding: 0 10px;
+}
+
+.expression button {
+  border-radius: 50%;
+  border: 1px solid #E3E3E3;
+  background: #FFF;
+  text-align: center;
+  cursor: pointer;
+  width: 2rem;
+  height: 2rem;
+}
+
+.expression button:hover:not([disabled]) {
+  background: #373A3C;
+  border-color: #373A3C;
+  color: #FFF;
+}
+
+.expression button:first-child {
+  margin-right: 5px;
+}
+
+.expression .btn-group {
+  margin: 0 10px;
+  white-space: nowrap;
 }
 
 @keyframes typing {
