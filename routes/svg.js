@@ -3,7 +3,8 @@ const router = express.Router({ mergeParams: true });
 const db = require('../lib/db');
 const products = require('../data.json');
 const Product = require('../lib/product')
-const Svg = require('../lib/svg-gantt');
+const Gantt = require('../lib/svg-gantt');
+const Alert = require('../lib/svg-alert');
 const { uniqDate, cloneDate, firstDay, nextMonth, time } = require('../lib/util');
 const { parse } = require('../lib/tokenizer');
 
@@ -28,10 +29,17 @@ router.get('/', async (req, res) => {
       ]).filter((d) => d).sort((a, b) => a > b ? 1 : -1)
     );
 
-    const svg = new Svg(rows, columns);
+    const gantt = new Gantt(rows, columns);
     res.setHeader('Content-Type', 'image/svg+xml');
-    res.send(svg.render(req.query.from, req.query.to));
+    res.send(gantt.render(req.query.from, req.query.to));
   } catch (err) {
+    if (err.constructor.name === 'SyntaxError') {
+      const alt = new Alert(err);
+      res.status(500);
+      res.setHeader('Content-Type', 'image/svg+xml');
+      res.send(alt.render());
+      return;
+    }
     console.error(err);
     res.status(500).end();
   }
