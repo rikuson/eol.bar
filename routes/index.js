@@ -2,7 +2,7 @@ const { execSync } = require('child_process');
 const express = require('express');
 const router = express.Router();
 const db = require('../lib/db');
-const products = require('../data.json');
+const data = require('../data.json');
 const { version } = require('../package.json');
 const AnsiHelp = require('../lib/ansi-help');
 const Product = require('../lib/product')
@@ -11,13 +11,16 @@ const { uniqDate, cloneDate, firstDay, nextMonth } = require('../lib/util');
 
 router.get('/', async (req, res) => {
   const ua = req.get('User-Agent');
-  const data = products.filter(async (product) => {
+  const products = await Promise.all(data.filter(async (product) => {
     const cycles = JSON.parse(await db.get(product));
     const exp = /^\d{4}-\d{2}-\d{2}$/;
     return cycles.every((cycle) => exp.test(cycle.release));
-  });
+  }).map(async (product) =>({
+    name: product,
+    data: JSON.parse(await db.get(product)),
+  })));
   if (new RegExp('^curl\/').test(ua)) {
-    const ansi = new AnsiHelp(data, version);
+    const ansi = new AnsiHelp(products.map(({ name }) => name), version);
     res.send(ansi.render());
     return;
   }
@@ -39,7 +42,7 @@ router.get('/', async (req, res) => {
     str = str.replaceAll('\x1b[0m', '</span>');
     return '<br />' + str + '>';
   })(gantt.render());
-  res.render('index', { version, products: data, example });
+  res.render('index', { version, products, example });
 });
 
 module.exports = router;
