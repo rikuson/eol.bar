@@ -2,6 +2,8 @@
 
 [![CI](https://github.com/rikuson/eol.bar/actions/workflows/node.js.yml/badge.svg)](https://github.com/rikuson/eol.bar/actions/workflows/node.js.yml)
 
+![eol schedule](https://eol.bar/nodejs=14+redis=6.2.svg)
+
 Display endoflife schedule on graphical interface.
 
 ## Development
