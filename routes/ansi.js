@@ -3,7 +3,7 @@ const router = express.Router({ mergeParams: true });
 const db = require('../lib/db');
 const products = require('../data.json');
 const Product = require('../lib/product')
-const AnsiGantt = require('../lib/ansi-gantt');
+const Gantt = require('../lib/ansi-gantt');
 const { uniqDate, cloneDate, firstDay, nextMonth, time } = require('../lib/util');
 const { parse } = require('../lib/tokenizer');
 
@@ -33,7 +33,7 @@ router.get('/', async (req, res) => {
       ]).filter((d) => d).sort((a, b) => a > b ? 1 : -1)
     );
 
-    const gantt = new AnsiGantt(rows, columns);
+    const gantt = new Gantt(rows, columns);
     res.send(gantt.render());
   } catch (err) {
     console.error(err);
