@@ -12,4 +12,13 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - name: Request
-      run: curl -sSf https://eol.bar
+      run: |-
+          curl -o /dev/null -sSfw '
+          http_code: %{http_code}
+          time_namelookup: %{time_namelookup}
+          time_connect: %{time_connect}
+          time_appconnect: %{time_appconnect}
+          time_pretransfer: %{time_pretransfer}
+          time_starttransfer: %{time_starttransfer}
+          time_total: %{time_total}
+          ' https://eol.bar
