@@ -26,6 +26,9 @@ window.onload = () => {
   fromInput.addEventListener('change', onChangeFromInput);
   toInput.addEventListener('change', onChangeToInput);
 
+  const urlEncodeInput = document.getElementById('url-encode');
+  urlEncodeInput.addEventListener('change', onChangeUrlEncode);
+
   const htmlTextarea = document.getElementById('html');
   const markdownTextarea = document.getElementById('markdown');
   const curlTextarea = document.getElementById('curl');
@@ -153,6 +156,10 @@ function onChangeToInput() {
   generateUrls();
 }
 
+function onChangeUrlEncode() {
+  generateUrls();
+}
+
 function cycleOptions(product) {
   const { data } = products.find(({ name }) => product === name);
   return data
@@ -161,10 +168,12 @@ function cycleOptions(product) {
 }
 
 function genExpressionFromElements(expressionElms) {
-  return Array.from(expressionElms).map((expressionElm) => {
+  const expression = Array.from(expressionElms).map((expressionElm) => {
     const [{ value: product }] = expressionElm.getElementsByClassName('product');
     const [{ value: operator }] = expressionElm.getElementsByClassName('operator');
     const [{ value: cycle }] = expressionElm.getElementsByClassName('cycle');
     return product + operator + cycle;
   }).filter((e) => e).join('+');
+  const { checked: urlEncode } = document.getElementById('url-encode');
+  return urlEncode ? encodeURIComponent(expression) : expression;
 }

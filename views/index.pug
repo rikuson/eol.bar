@@ -122,6 +122,9 @@ html
           a.tab-item.active(href='#html') HTML
           a.tab-item(href='#markdown') Markdown
           a.tab-item(href='#curl') curl
+          label
+            input#url-encode(type='checkbox')
+            | URL Encode
         .tab-content
           textarea#html.active(readonly)
           textarea#markdown(readonly)
