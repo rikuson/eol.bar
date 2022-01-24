@@ -13,6 +13,9 @@ router.get('/', async (req, res) => {
   const ua = req.get('User-Agent');
   const products = await Promise.all(data.filter(async (product) => {
     const cycles = JSON.parse(await db.get(product));
+    if (!cycles) {
+      return false;
+    }
     const exp = /^\d{4}-\d{2}-\d{2}$/;
     return cycles.every((cycle) => exp.test(cycle.release));
   }).map(async (product) =>({
