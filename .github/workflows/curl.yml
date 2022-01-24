@@ -1,0 +1,15 @@
+name: Heath Check
+
+on:
+  schedule:
+    - cron: '*/30 * * * *'
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Request
+      run: curl -sSf https://eol.bar
