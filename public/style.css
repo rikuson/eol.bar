@@ -192,11 +192,6 @@ code {
   color: inherit;
 }
 
-.tab label {
-  float: right;
-  padding: 10px;
-}
-
 .tab-content {
   padding: 15px 0;
 }

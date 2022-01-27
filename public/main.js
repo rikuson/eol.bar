@@ -26,9 +26,6 @@ window.onload = () => {
   fromInput.addEventListener('change', onChangeFromInput);
   toInput.addEventListener('change', onChangeToInput);
 
-  const urlEncodeInput = document.getElementById('url-encode');
-  urlEncodeInput.addEventListener('change', onChangeUrlEncode);
-
   const htmlTextarea = document.getElementById('html');
   const markdownTextarea = document.getElementById('markdown');
   const curlTextarea = document.getElementById('curl');
@@ -174,6 +171,5 @@ function genExpressionFromElements(expressionElms) {
     const [{ value: cycle }] = expressionElm.getElementsByClassName('cycle');
     return product + operator + cycle;
   }).filter((e) => e).join('+');
-  const { checked: urlEncode } = document.getElementById('url-encode');
-  return urlEncode ? encodeURIComponent(expression) : expression;
+  return encodeURIComponent(expression);
 }
