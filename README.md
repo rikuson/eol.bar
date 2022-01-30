@@ -3,11 +3,13 @@
 [![Unit Test](https://github.com/rikuson/eol.bar/actions/workflows/node.js.yml/badge.svg)](https://github.com/rikuson/eol.bar/actions/workflows/node.js.yml)
 [![Heath Check](https://github.com/rikuson/eol.bar/actions/workflows/curl.yml/badge.svg)](https://github.com/rikuson/eol.bar/actions/workflows/curl.yml)
 
-Display endoflife schedule on graphical interface.
+When your project depends on other product, you must care when to update those dependencies.  
+**eol.bar** provides a schedule of end-of-life dates of various products graphically.  
+Those data are powered by [endoflife.date](https://endoflife.date/) which is a community-maintained project.
 
 ## Basic Usage
 
-Put `img` tag in your project's wiki or something.
+Put `img` tag in your project's wiki or something.  
 Alive lifecycles are shown as a default.
 
 ```html
@@ -28,7 +30,7 @@ To list multiple products, separate by `+`.
 
 ### Filtering
 
-To filter lifecycles, put **comparison operator** after product name.
+To filter lifecycles, put **comparison operator** after product name.  
 Available operators: `=`, `>`, `>=`, `<`, `<=`.
 
 NOTE: Right-hand side value of operation should be existing lifecycle.

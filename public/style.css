@@ -39,21 +39,6 @@ h3 {
   color: #373A3C;
 }
 
-pre {
-  background: #F0F0F0;
-  border-radius: 5px;
-  padding: 15px;
-  overflow: auto;
-}
-
-code {
-  color: #000;
-  background: #F0F0F0;
-  border-radius: 3px;
-  padding: 0 5px;
-  font-family: monospace;
-}
-
 .navbar {
   margin-bottom: 30px;
   display: flex;
@@ -70,51 +55,8 @@ code {
   font-size: 1.4rem;
 }
 
-.terminal {
-  font-size: .8rem;
-  margin-bottom: 15px;
-  display: block;
-  padding: 15px;
-  font-family: monospace;
-  border: 1.5px;
-  color: #FFF;
-  border-radius: 5px;
-  background: #333;
-  box-shadow: 3px 3px 8px rgba(0,0,0,0.5);
-}
-
-.terminal span:first-child {
-  vertical-align: middle;
-}
-
-.terminal .typing {
-  font-size: .8rem;
-  display: inline-block;
-  width: 19ch;
-  overflow: hidden;
-  vertical-align: middle;
-  animation: 3s steps(19) typing;
-}
-
-.terminal:before {
-  content: '>';
-  margin-right: .5rem;
-  vertical-align: middle;
-}
-
-.terminal:after {
-  content: '_';
-  margin-left: .5rem;
-  animation: .7s ease-in infinite flush;
-}
-
 .container {
-  max-width: 1080px;
-  width: 100%;
-  margin-left: auto;
-  margin-right: auto;
-  padding: 0 5%;
-  box-sizing: border-box;
+  padding: 0 20px;
 }
 
 .badge {
@@ -154,16 +96,6 @@ code {
 
 .bg-white {
   background: #FFF;
-}
-
-.terminal .active {
-  background: blue;
-  color: white;
-}
-
-.terminal .maintenance {
-  background: gray;
-  color: white;
 }
 
 .hidden {

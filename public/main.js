@@ -1,12 +1,4 @@
 window.onload = () => {
-  const [terminalElm] = document.getElementsByClassName('terminal');
-  setTimeout(() => {
-    const [innerElm] = document.getElementsByClassName('typing');
-    innerElm.className = '';
-    const [response] = document.getElementsByClassName('hidden');
-    response.className = '';
-  }, 4500);
-
   const tabs = document.querySelectorAll('.tab-item');
   tabs.forEach((tab) => {
     tab.addEventListener('click', (e) => {

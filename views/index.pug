@@ -1,9 +1,14 @@
 doctype html
 html
-  head
+  head(prefix='og: http://ogp.me/ns# fb: http://ogp.me/ns/fb# website: http://ogp.me/ns/website#')
     meta(charset='utf-8')
     meta(name='viewport' content='width=device-width, initial-scale=1')
     link(rel='icon' href='/favicon.ico')
+    meta(property='og:url' content='https://eol.bar')
+    meta(property='og:type' content='website')
+    meta(property='og:title' content='Display EoL schedule')
+    meta(property='og:description' content='When your project depends on other product, you must care when to update those dependencies. eol.bar provides a schedule of end-of-life dates of various products graphically.')
+    meta(property='og:site_name' content='eol.bar')
     title eol.bar
     link(rel='canonical' href='https://eol.bar')
     link(rel='stylesheet' href='/style.css')
@@ -20,84 +25,8 @@ html
     section.container
       a(href='https://github.com/rikuson/eol.bar')
         img(src='https://img.shields.io/github/stars/rikuson/eol.bar?style=social')
-      pre.terminal
-        span.typing curl eol.bar/nodejs
-        span.hidden!= example
+      img#preview
       section
-        h2 What's this?
-        p
-          | When your project depends on other product, you must care when to update those dependencies.
-          br
-          | <b>eol.bar</b> provides a schedule of end-of-life dates of various products graphically.
-          br
-          | Those data are powered by 
-          a(href='https://endoflife.date') endoflife.date
-          |  which is a community-maintained project.
-      section
-        h2 Basic Usage
-        p
-          | Put <code>img</code> tag in your project's wiki or something.
-          br
-          | Alive lifecycles are shown as a default.
-        pre
-          code= '<img src="https://eol.bar/nodejs.svg" />'
-        a(href='/nodejs.svg' target='_blank')
-          img(src='/nodejs.svg')
-        p To list multiple products, separate by <code>+</code>.
-        pre
-          code= '<img src="https://eol.bar/nodejs+php.svg" />'
-        a(href='/nodejs+php.svg' target='_blank')
-          img(src='/nodejs+php.svg')
-      section
-        h2 Advanced Usage
-        section
-          h3 Filtering
-          p
-            | To filter lifecycles, put <b>comparison operator</b> after product name.
-            br
-            | Available operators: 
-            code =
-            | , 
-            code >
-            | , 
-            code >=
-            | , 
-            code <
-            | , 
-            code <=
-            | .
-          p NOTE: Right-hand side value of operation should be existing lifecycle.
-          pre
-            code= '<img src="https://eol.bar/nodejs<=12.svg" />'
-          a(href='/nodejs<=12.svg' target='_blank')
-            img(src='/nodejs<=12.svg')
-          p You can also use <b>wildcard</b> in a value.
-          pre
-            code= '<img src="https://eol.bar/php=7.*.svg" />'
-          a(href='/php=7.*.svg' target='_blank')
-            img(src='/php=7.*.svg')
-        section
-          h3 Cropping
-          p To adjust width, crop by url parameters: <code>from</code> / <code>to</code>.
-          pre
-            code= '<img src="https://eol.bar/php=7.*.svg?from=2019-02-01&to=2021-11-30"/>'
-          a(href='/php=7.*.svg?from=2019-02-01&to=2021-11-30' target='_blank')
-            img(src='/php=7.*.svg?from=2019-02-01&to=2021-11-30')
-        section
-          h3 Curl
-          p
-            | Interestingly, <b>eol.bar</b> returns ascii graphically by curl request.
-            br
-            | Try executing command below in your terminal app.
-          p NOTE: Currently, <i>Cropping</i> is not supported by curl request.
-          pre
-            code= '$ curl eol.bar/php'
-        p Requesting root path shows help text.
-        pre
-          code $ curl eol.bar
-      section
-        h2 URL generator
-        p You can kick-start with URL generator.
         #period
           input#from(type='date')
           | -
@@ -127,7 +56,6 @@ html
           textarea#html.active(readonly)
           textarea#markdown(readonly)
           textarea#curl(readonly)
-        img#preview
       section
         h2 Supported products
         ul.products
