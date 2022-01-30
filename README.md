@@ -14,7 +14,7 @@ Alive lifecycles are shown as a default.
 <img src="https://eol.bar/nodejs.svg" />
 ```
 
-[![img](http://localhost:3000/nodejs.svg)](http://localhost:3000/nodejs.svg)
+[![nodejs](https://eol.bar/nodejs.svg)](https://eol.bar/nodejs.svg)
 
 To list multiple products, separate by `+`.
 
@@ -22,7 +22,7 @@ To list multiple products, separate by `+`.
 <img src="https://eol.bar/nodejs+php.svg" />
 ```
 
-[![img](http://localhost:3000/nodejs+php.svg)](http://localhost:3000/nodejs+php.svg)
+[![nodejs+php](https://eol.bar/nodejs+php.svg)](https://eol.bar/nodejs+php.svg)
 
 ## Advanced Usage
 
@@ -37,7 +37,7 @@ NOTE: Right-hand side value of operation should be existing lifecycle.
 <img src="https://eol.bar/nodejs<=12.svg" />
 ```
 
-[![img](http://localhost:3000/nodejs%3C=12.svg)](http://localhost:3000/nodejs<=12.svg)
+[![nodejs<=12](https://eol.bar/nodejs%3C=12.svg)](https://eol.bar/nodejs%3C=12.svg)
 
 You can also use **wildcard** in a value.
 
@@ -45,7 +45,7 @@ You can also use **wildcard** in a value.
 <img src="https://eol.bar/php=7.*.svg" />
 ```
 
-[![img](http://localhost:3000/php=7.*.svg)](http://localhost:3000/php=7.*.svg)
+[![php=7.*](https://eol.bar/php=7.*.svg)](https://eol.bar/php=7.*.svg)
 
 ### Cropping
 
@@ -55,7 +55,7 @@ To adjust width, crop by url parameters: `from` / `to`.
 <img src="https://eol.bar/php=7.*.svg?from=2019-02-01&to=2021-11-30"/>
 ```
 
-[![img](http://localhost:3000/php=7.*.svg?from=2019-02-01&to=2021-11-30)](http://localhost:3000/php=7.*.svg?from=2019-02-01&to=2021-11-30)
+[![img](https://eol.bar/php=7.*.svg?from=2019-02-01&to=2021-11-30)](https://eol.bar/php=7.*.svg?from=2019-02-01&to=2021-11-30)
 
 ### Curl
 
