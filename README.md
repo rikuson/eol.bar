@@ -3,7 +3,7 @@
 [![Unit Test](https://github.com/rikuson/eol.bar/actions/workflows/node.js.yml/badge.svg)](https://github.com/rikuson/eol.bar/actions/workflows/node.js.yml)
 [![Heath Check](https://github.com/rikuson/eol.bar/actions/workflows/curl.yml/badge.svg)](https://github.com/rikuson/eol.bar/actions/workflows/curl.yml)
 
-![logo](./public/logo.svg)
+<img src="./public/logo.svg" width="256" alt="logo" />
 
 When your project depends on other product, you must care when to update those dependencies.  
 **eol.bar** provides a schedule of end-of-life dates of various products graphically.  
