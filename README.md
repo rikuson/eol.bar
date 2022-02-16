@@ -3,6 +3,8 @@
 [![Unit Test](https://github.com/rikuson/eol.bar/actions/workflows/node.js.yml/badge.svg)](https://github.com/rikuson/eol.bar/actions/workflows/node.js.yml)
 [![Heath Check](https://github.com/rikuson/eol.bar/actions/workflows/curl.yml/badge.svg)](https://github.com/rikuson/eol.bar/actions/workflows/curl.yml)
 
+![logo](./public/logo.svg)
+
 When your project depends on other product, you must care when to update those dependencies.  
 **eol.bar** provides a schedule of end-of-life dates of various products graphically.  
 Those data are powered by [endoflife.date](https://endoflife.date/) which is a community-maintained project.
