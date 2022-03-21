@@ -2,7 +2,7 @@ name: Heath Check
 
 on:
   schedule:
-    - cron: '*/30 * * * *'
+    - cron: '*/20 * * * *'
 
 jobs:
   build:
