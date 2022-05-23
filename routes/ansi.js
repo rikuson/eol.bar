@@ -6,6 +6,9 @@ const Product = require('../lib/product')
 const Gantt = require('../lib/ansi-gantt');
 const { uniqDate, cloneDate, firstDay, nextMonth, time } = require('../lib/util');
 const { parse } = require('../lib/tokenizer');
+const { version } = require('../package.json');
+const AnsiHelp = require('../lib/ansi-help');
+const NotFoundError = require('../lib/not-found-error');
 
 router.get('/', async (req, res) => {
   const ua = req.get('User-Agent');
@@ -16,6 +19,9 @@ router.get('/', async (req, res) => {
   try {
     const targets = await Promise.all(parse(req.params.products).map(async (target) => {
       const exists = products.includes(target.product);
+      if (!exists) {
+        throw new NotFoundError(`${target.product} is not found.`);
+      }
       return {
         ...target,
         data: exists ? JSON.parse(await db.get(target.product)) : [],
@@ -36,6 +42,13 @@ router.get('/', async (req, res) => {
     const gantt = new Gantt(rows, columns);
     res.send(gantt.render());
   } catch (err) {
+    if (err instanceof NotFoundError) {
+      const help = new AnsiHelp(products, version);
+      const red = '\x1b[31m';
+      const reset = '\x1b[0m';
+      res.send(`${red}[Error]${reset} ${err.message}\n\n` + help.render()).status(err.code).end();
+      return;
+    }
     console.error(err);
     res.status(500).end();
   }
