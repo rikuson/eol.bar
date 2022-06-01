@@ -17,7 +17,7 @@ router.get('/', async (req, res) => {
       return false;
     }
     const exp = /^\d{4}-\d{2}-\d{2}$/;
-    return cycles.every((cycle) => exp.test(cycle.release));
+    return cycles.every((cycle) => exp.test(cycle.releaseDate));
   }).map(async (product) =>({
     name: product,
     data: JSON.parse(await db.get(product)),
@@ -30,8 +30,8 @@ router.get('/', async (req, res) => {
   const product = new Product(JSON.parse(await db.get('nodejs')));
   const rows = product.search('nodejs');
   const columns = uniqDate(
-    rows.flatMap(({ release, support, eol }) => [
-      release && firstDay(cloneDate(release)),
+    rows.flatMap(({ releaseDate, support, eol }) => [
+      releaseDate && firstDay(cloneDate(releaseDate)),
       support && firstDay(cloneDate(support)),
       eol && firstDay(nextMonth(cloneDate(eol))),
     ]).filter((d) => d).sort((a, b) => a > b ? 1 : -1)

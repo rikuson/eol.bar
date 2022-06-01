@@ -22,8 +22,8 @@ router.get('/', async (req, res) => {
       return product.search(target.product, target.operator, target.value);
     });
     const columns = uniqDate(
-      rows.flatMap(({ release, support, eol }) => [
-        release && firstDay(cloneDate(release)),
+      rows.flatMap(({ releaseDate, support, eol }) => [
+        releaseDate && firstDay(cloneDate(releaseDate)),
         support && firstDay(cloneDate(support)),
         eol && firstDay(nextMonth(cloneDate(eol))),
       ]).filter((d) => d).sort((a, b) => a > b ? 1 : -1)
