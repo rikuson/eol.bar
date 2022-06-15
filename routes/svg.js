@@ -7,14 +7,18 @@ const Gantt = require('../lib/svg-gantt');
 const Alert = require('../lib/svg-alert');
 const { uniqDate, cloneDate, firstDay, nextMonth, time } = require('../lib/util');
 const { parse } = require('../lib/tokenizer');
+const SyntaxError = require('../lib/syntax-error');
 
 router.get('/', async (req, res) => {
   try {
     const targets = (await Promise.all(parse(req.params.products).map(async (target) => {
       const exists = products.includes(target.product);
+      if (!exists) {
+        throw new NotFoundError(target.product);
+      }
       return {
         ...target,
-        data: exists ? JSON.parse(await db.get(target.product)) : [],
+        data: JSON.parse(await db.get(target.product)),
       };
     })));
     const rows = targets.flatMap((target) => {
@@ -33,7 +37,7 @@ router.get('/', async (req, res) => {
     res.setHeader('Content-Type', 'image/svg+xml');
     res.send(gantt.render(req.query.from, req.query.to));
   } catch (err) {
-    if (err.constructor.name === 'SyntaxError') {
+    if (err instanceof SyntaxError) {
       const alt = new Alert(err);
       res.status(500);
       res.setHeader('Content-Type', 'image/svg+xml');
