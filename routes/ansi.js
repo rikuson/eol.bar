@@ -1,4 +1,5 @@
 const express = require('express');
+const didYouMean = require('didyoumean');
 const router = express.Router({ mergeParams: true });
 const db = require('../lib/db');
 const products = require('../data.json');
@@ -20,11 +21,11 @@ router.get('/', async (req, res) => {
     const targets = await Promise.all(parse(req.params.products).map(async (target) => {
       const exists = products.includes(target.product);
       if (!exists) {
-        throw new NotFoundError(`${target.product} is not found.`);
+        throw new NotFoundError(target.product);
       }
       return {
         ...target,
-        data: exists ? JSON.parse(await db.get(target.product)) : [],
+        data: JSON.parse(await db.get(target.product)),
       };
     }));
     const rows = targets.flatMap((target) => {
@@ -46,7 +47,16 @@ router.get('/', async (req, res) => {
       const help = new AnsiHelp(products, version);
       const red = '\x1b[31m';
       const reset = '\x1b[0m';
-      res.send(`${red}[Error]${reset} ${err.message}\n\n` + help.render()).status(err.code).end();
+      let msg = '';
+      msg += `${red}[Error]${reset} ${err.message} `;
+      msg += `See 'curl eol.bar'.\n`;
+      didYouMean.threshold = 0.6;
+      const suggestion = didYouMean(err.target, products);
+      if (suggestion) {
+        msg += `\nThe most similar product is\n`;
+        msg += `        ${suggestion}\n`;
+      }
+      res.send(msg).status(err.code).end();
       return;
     }
     console.error(err);
