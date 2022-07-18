@@ -1,7 +1,21 @@
 version: "3"
 
 services:
-  db:
-    image: "redis:6.2.5"
+  kvs:
+    image: redis:6.2.5
     ports:
-      - "6379:6379"
+      - 6379:6379
+  web:
+    image: node:16
+    user: "node"
+    ports:
+      - 80:3000
+    environment:
+      - NODE_ENV=development
+    volumes:
+      - ./:/home/node/app
+    working_dir: /home/node/app
+    command:
+      sh -c "npm run prestart && npm run fetch > /dev/null & npm run dev"
+    depends_on:
+      - kvs

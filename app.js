@@ -19,7 +19,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
-app.use('/:products.svg', svgRouter);
-app.use('/:products', ansiRouter);
+app.use('/:expression.svg', svgRouter);
+app.use('/:expression', ansiRouter);
 
 module.exports = app;
