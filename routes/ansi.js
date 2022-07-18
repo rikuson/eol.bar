@@ -8,8 +8,8 @@ const Gantt = require('../lib/ansi-gantt');
 const { uniqDate, cloneDate, firstDay, nextMonth, time } = require('../lib/util');
 const { parse } = require('../lib/tokenizer');
 const { version } = require('../package.json');
-const AnsiHelp = require('../lib/ansi-help');
 const NotFoundError = require('../lib/not-found-error');
+const SyntaxError = require('../lib/syntax-error');
 
 router.get('/', async (req, res) => {
   const ua = req.get('User-Agent');
@@ -43,19 +43,22 @@ router.get('/', async (req, res) => {
     const gantt = new Gantt(rows, columns);
     res.send(gantt.render());
   } catch (err) {
+    const red = '\x1b[31m';
+    const reset = '\x1b[0m';
+    let msg = '';
+    msg += `${red}[Error]${reset} ${err.message} `;
+    msg += `See 'curl eol.bar'.\n`;
     if (err instanceof NotFoundError) {
-      const help = new AnsiHelp(products, version);
-      const red = '\x1b[31m';
-      const reset = '\x1b[0m';
-      let msg = '';
-      msg += `${red}[Error]${reset} ${err.message} `;
-      msg += `See 'curl eol.bar'.\n`;
       didYouMean.threshold = 0.6;
       const suggestion = didYouMean(err.target, products);
       if (suggestion) {
         msg += `\nThe most similar product is\n`;
         msg += `        ${suggestion}\n`;
       }
+      res.send(msg).status(err.code).end();
+      return;
+    }
+    if (err instanceof SyntaxError) {
       res.send(msg).status(err.code).end();
       return;
     }
