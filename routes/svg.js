@@ -11,7 +11,7 @@ const SyntaxError = require('../lib/syntax-error');
 
 router.get('/', async (req, res) => {
   try {
-    const targets = (await Promise.all(parse(req.params.products).map(async (target) => {
+    const targets = (await Promise.all(parse(req.params.expression).map(async (target) => {
       const exists = products.includes(target.product);
       if (!exists) {
         throw new NotFoundError(target.product);
